@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList} from 'react-native'
 import Api from '../models/Api'
 import weatherCode from '../services/weatherCode'
 import TemperatureConverter from './components/TemperatureConverter';
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
 const MeteoCity = ({ navigation, route }) => {
   const meteoAPI = new Api()
@@ -76,6 +77,7 @@ const MeteoCity = ({ navigation, route }) => {
   const renderItem = ({ item }) => (
     <View style={styles.previsionView} key={item.datetime}>
       <Text style={styles.previsionTitle}>{dateFormat(item.datetime)}</Text>
+      <Icon name={getWeatherIcon(item.weather)} size={30} color="#000" />
       <Text>{weatherCode[item.weather]}</Text>
       <Text>
         T°Max : {item.tmax} T°Min : {item.tmin}
@@ -97,7 +99,7 @@ const MeteoCity = ({ navigation, route }) => {
                 {meteoCity.city.name} {isCelsius ? meteoCity.forecast[0][3].temp2m : (meteoCity.forecast[0][3].temp2m * 9/5) + 32}˚
               </Text>
               <Text style={styles.subtitle}>
-                {weatherCode[meteoCity.forecast[0][3].weather]}
+                {weatherCode[meteoCity.forecast[0][3].weather]} <Icon name={getWeatherIcon(meteoCity.forecast[0][3].weather)} size={30} color="#000" />
               </Text>
               <TemperatureConverter onConvert={handleTemperatureConversion}/>
             </View>
@@ -114,6 +116,188 @@ const MeteoCity = ({ navigation, route }) => {
     </>
   )
 }
+const getWeatherIcon = (weatherCode) => {
+  switch (weatherCode) {
+    case 0:
+      return 'sun-o'; // Soleil
+    case 1:
+      return 'cloud'; // Peu nuageux
+    case 2:
+      return 'cloud';
+    case 3:
+      return 'cloud';
+    case 4:
+      return 'cloud';
+    case 5:
+      return 'cloud';
+    case 6:
+      return 'cloud';
+    case 7:
+      return 'cloud'; 
+    case 10:
+      return 'cloud';
+    case 11:
+      return 'cloud';
+    case 12:
+      return 'cloud';
+    case 13:
+      return 'cloud';
+    case 14:
+      return 'cloud';
+    case 15:
+      return 'cloud';
+    case 16:
+      return 'cloud'; 
+    case 20:
+      return 'snowflake-o';
+    case 21:
+      return 'snowflake-o';
+    case 22:
+      return 'snowflake-o'; 
+    case 30:
+      return 'snowflake-o';
+    case 31:
+      return 'snowflake-o';
+    case 32:
+      return 'snowflake-o'; 
+    case 40:
+      return 'tint';
+    case 41:
+      return 'tint';
+    case 42:
+      return 'tint';
+    case 43:
+      return 'tint';
+    case 44:
+      return 'tint';
+    case 45:
+      return 'tint';
+    case 46:
+      return 'tint';
+    case 47:
+      return 'tint';
+    case 48:
+      return 'tint'; 
+    case 60:
+      return 'tint';
+    case 61:
+      return 'tint';
+    case 62:
+      return 'tint'; 
+    case 63:
+      return 'snowflake-o';
+    case 64:
+      return 'snowflake-o';
+    case 65:
+      return 'snowflake-o';
+    case 66:
+      return 'snowflake-o';
+    case 67:
+      return 'snowflake-o';
+    case 68:
+      return 'snowflake-o'; 
+    case 70:
+      return 'tint';
+    case 71:
+      return 'tint';
+    case 72:
+      return 'tint';
+    case 73:
+      return 'tint';
+    case 74:
+      return 'tint';
+    case 75:
+      return 'tint';
+    case 76:
+      return 'tint';
+    case 77:
+      return 'tint';
+    case 78:
+      return 'tint'; 
+    case 100:
+      return 'bolt';
+    case 101:
+      return 'bolt';
+    case 102:
+      return 'bolt';
+    case 103:
+      return 'bolt';
+    case 104:
+      return 'bolt';
+    case 105:
+      return 'bolt';
+    case 106:
+      return 'bolt';
+    case 107:
+      return 'bolt';
+    case 108:
+      return 'bolt'; 
+    case 120:
+      return 'bolt';
+    case 121:
+      return 'bolt';
+    case 122:
+      return 'bolt';
+    case 123:
+      return 'bolt';
+    case 124:
+      return 'bolt';
+    case 125:
+      return 'bolt';
+    case 126:
+      return 'bolt';
+    case 127:
+      return 'bolt';
+    case 128:
+      return 'bolt'; 
+    case 130:
+      return 'bolt';
+    case 131:
+      return 'bolt';
+    case 132:
+      return 'bolt';
+    case 133:
+      return 'bolt';
+    case 134:
+      return 'bolt';
+    case 135:
+      return 'bolt';
+    case 136:
+      return 'bolt';
+    case 137:
+      return 'bolt';
+    case 138:
+      return 'bolt'; 
+    case 140:
+      return 'bolt';
+    case 141:
+      return 'bolt';
+    case 142:
+      return 'bolt'; 
+    case 210:
+      return 'tint';
+    case 211:
+      return 'tint';
+    case 212:
+      return 'tint'; 
+    case 220:
+      return 'snowflake-o';
+    case 221:
+      return 'snowflake-o';
+    case 222:
+      return 'snowflake-o'; 
+    case 230:
+      return 'tint';
+    case 231:
+      return 'tint';
+    case 232:
+      return 'tint';
+    case 235:
+      return 'tint'; 
+    default:
+      return 'question'; // Cas par défaut
+  }
+};
 
 const styles = StyleSheet.create({
   weatherContainer: {
