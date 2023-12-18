@@ -1,11 +1,18 @@
 import * as React from 'react'
 import { useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList} from 'react-native'
 import Api from '../models/Api'
 import weatherCode from '../services/weatherCode'
+import TemperatureConverter from './components/TemperatureConverter';
 
 const MeteoCity = ({ navigation, route }) => {
   const meteoAPI = new Api()
+
+  const [isCelsius, setIsCelsius] = React.useState(true);
+
+  const handleTemperatureConversion = (toCelsius) => {
+    setIsCelsius(toCelsius);
+  };
 
   const [meteoCityFor5Days, setMeteoCityFor5Days] = React.useState({})
   //Objet factice pour eviter les erreurs dans le code
@@ -66,7 +73,6 @@ const MeteoCity = ({ navigation, route }) => {
 
     return dateFormat
   }
-
   const renderItem = ({ item }) => (
     <View style={styles.previsionView} key={item.datetime}>
       <Text style={styles.previsionTitle}>{dateFormat(item.datetime)}</Text>
@@ -88,11 +94,12 @@ const MeteoCity = ({ navigation, route }) => {
           <View style={styles.weatherContainer}>
             <View style={styles.headerContainer}>
               <Text style={styles.tempText}>
-                {meteoCity.city.name} {meteoCity.forecast[0][3].temp2m}˚
+                {meteoCity.city.name} {isCelsius ? meteoCity.forecast[0][3].temp2m : (meteoCity.forecast[0][3].temp2m * 9/5) + 32}˚
               </Text>
               <Text style={styles.subtitle}>
                 {weatherCode[meteoCity.forecast[0][3].weather]}
               </Text>
+              <TemperatureConverter onConvert={handleTemperatureConversion}/>
             </View>
             <View style={styles.weatherContainer}>
               <FlatList
